@@ -9,11 +9,11 @@ import SwiftUI
 
 struct JamuDetailsWW: View {
     var jamu: Jamu
+    @State var text:
     @State var percentage: Float = 0.85
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                
                 JColor.gradientPurple
                     .ignoresSafeArea()
                 VStack{
@@ -23,15 +23,12 @@ struct JamuDetailsWW: View {
                         .blendMode(.softLight)
                         .ignoresSafeArea()
                     Spacer()
-                    
-                       
                 }
                 
                 VStack(alignment: .center) {
                     Spacer()
                         .frame(height: geo.size.height*0.1)
                     Rectangle()
-
 //                        .cornerRadius(40, corners: [)
                         .cornerRadius(40)
                         .foregroundColor(JColor.white)
@@ -43,28 +40,28 @@ struct JamuDetailsWW: View {
                                 ZStack{
                                     Circle()
                                         .foregroundColor(JColor.white)
-                                        .frame(width:123)
+                                        .frame(width:145)
                                         .shadow(radius: 10)
                                     Image(jamu.imageName)
                                         .resizable()
                                         .scaledToFit()
-                                        .frame(width:68,height: 75)
+                                        .frame(width:110,height: 110)
                                         .padding(.leading,6)
                                 }
 
-                                .padding(.top,-80)
+                                .padding(.top,-geo.size.height*0.1)
                                 ScrollView(showsIndicators: false){
                                     VStack(alignment: .center, spacing: 10){
-//                                        TopContent()
                                         HStack{
                                             Text(jamu.name)
                                                 .bold()
-                                                .font(JFont.semiBold(fontFamily: .poppins, size: 24))
+                                                .font(JFont.semiBold(fontFamily: .poppins, size: 40))
                                             Rectangle()
                                                 .fill(JColor.gradientPurple)
                                                 .cornerRadius(20)
                                                 .frame(width: 86, height: 33)
                                                 .overlay(
+                                                    
 
                                             Text("Epic")
                                                 .font(JFont.semiBold(fontFamily: .poppins,size: 14))
@@ -75,21 +72,23 @@ struct JamuDetailsWW: View {
                                         }
                                         Spacer()
                                             .frame(height: ViewPadding.small)
+                                        HStack(spacing: 20){
+                                            ForEach(jamu.jamuReceipts){jamuReceipt in
+                                                DetailIngredientView(ingridient: jamuReceipt.ingridient, count: jamuReceipt.quantity)
+                                            }
+                                        }
 
 
                                         Spacer()
                                             .frame(height: ViewPadding.small)
                                         Group{
-                                            Text("Earn 20 XP for each wish made and level up to the next value stage of your stone!")
-                                                .lineSpacing(8)
-                                                .padding(.horizontal,ViewPadding.xxlarge)
-                                                .font(JFont.regular(fontFamily: .poppins,size: 12))
-                                                .multilineTextAlignment(.center)
-
                                             Text("Tangerine Apple")
                                                 .font(JFont.semiBold(fontFamily: .poppins, size: 40))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .padding(.horizontal, ViewPadding.xlarge)
+                                            HStack{
+                                                
+                                            }
                                             Text("Lemonade Juice")
                                                 .font(JFont.regular(fontFamily: .poppins, size: 15))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -104,11 +103,17 @@ struct JamuDetailsWW: View {
                                                 .font(JFont.semiBold(fontFamily: .poppins, size: 25))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .padding(.horizontal, ViewPadding.xlarge)
-                                            Text("Earn 20 XP for each wish made and level up to the next value stage of your stone!")
+                                            Text(jamu.jamuDescription)
                                                 .lineSpacing(8)
                                                 .padding(.horizontal,ViewPadding.xxlarge)
                                                 .font(JFont.regular(fontFamily: .poppins,size: 12))
                                                 .multilineTextAlignment(.leading)
+                                            
+//                                            Text("Earn 20 XP for each wish made and level up to the next value stage of your stone!")
+//                                                .lineSpacing(8)
+//                                                .padding(.horizontal,ViewPadding.xxlarge)
+//                                                .font(JFont.regular(fontFamily: .poppins,size: 12))
+//                                                .multilineTextAlignment(.leading)
                                             Spacer()
                                                 .frame(height: ViewPadding.mini)
                                             Image("soon_stone")

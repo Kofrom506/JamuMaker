@@ -8,6 +8,9 @@
 import Foundation
 
 
-enum JamuRarity {
-    case epic, rare, common, zonk
+enum JamuRarity: String {
+    case epic = "Epic"
+    case rare = "Rare"
+    case common = "Common"
+    case zonk = "Zonk"
 }

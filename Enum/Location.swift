@@ -7,6 +7,10 @@
 
 import Foundation
 
-enum Location {
-    case sumatra, jawa, kalimantan, papua, sulawesi
+enum Location: String {
+    case sumatra = "Sumatra"
+    case jawa = "Jawa"
+    case kalimantan = "Kalimantan"
+    case papua = "Papua"
+    case sulawesi = "Sulawesi"
 }
