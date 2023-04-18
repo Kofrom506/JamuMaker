@@ -9,6 +9,8 @@ import SwiftUI
 
 struct JamuDetailView: View {
     var jamu: Jamu
+   
+
     var body: some View {
         VStack(alignment: .leading){
             

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DetailLocationView: View {
+    
     var location: Location
     var body: some View {
         VStack{

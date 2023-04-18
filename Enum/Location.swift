@@ -7,7 +7,11 @@
 
 import Foundation
 
-enum Location: String {
+enum Location: String, Identifiable{
+    var id: Self {
+
+            return self
+        }
     case sumatra = "Sumatra"
     case jawa = "Jawa"
     case kalimantan = "Kalimantan"

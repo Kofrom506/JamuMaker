@@ -66,6 +66,8 @@ public struct JColor {
     
     
     public static let gradientPurple = LinearGradient(colors: [Color("purple1gradient"), Color("purple2gradient")], startPoint: .top, endPoint: .bottom)
+    public static let gradientBlue = LinearGradient(colors: [Color("blue"), Color("blueSoft")], startPoint: .top, endPoint: .bottom)
+   
     
     public static let gradientCard = LinearGradient(colors: [Color("purple1gradient"), Color("purple2gradient")], startPoint: .topLeading, endPoint: .bottomTrailing)
     

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct IngridientCardView: View {
     var ingridient: Ingredient
+    var withCount: Bool = true
     var count: Int = 0
     var body: some View {
         
@@ -28,17 +29,18 @@ struct IngridientCardView: View {
             Text(ingridient.name)
                 .font(JFont.bold(fontFamily: .poppins, size: 22))
                 .foregroundColor(.white)
-            Text("Qty: " + String(count))
-                .font(JFont.medium(fontFamily: .poppins, size: 15))
-                .foregroundColor(.white)
-                .foregroundColor(.gray)
-//                    .padding(.bottom, 5)
+            if(withCount){
+                Text("Qty: " + String(count))
+                    .font(JFont.medium(fontFamily: .poppins, size: 15))
+                    .foregroundColor(.white)
                     .lineLimit(2)
+            }
                       }.frame(height: 175)
                     .background(
                         RoundedRectangle(cornerRadius: 10, style: .continuous)
                             .frame(width: 150, height: 210)
-                            .foregroundColor(JColor.blueSoft)
+                            .foregroundColor(JColor.greenSoft) .cornerRadius(10)
+                            .shadow(color: Color.gray.opacity(0.4), radius: 5, x: 0, y: 5)
                         
                             .background(
                                 Rectangle()

@@ -1,27 +1,25 @@
 //
 //  SwiftUIView.swift
-//  
+//
 //
 //  Created by Evan Susanto on 16/04/23.
 //
 
 import SwiftUI
 
-struct JamuDetailsWW: View {
+struct IngredientsDetailView: View {
     //    @EnvironmentObject var user: User
-    var jamu: Jamu = jamuKunyitAsam
-    
+    var ingridient: Ingredient = asamJawa
     var user: User = User(
         name: "Evan Susanto",
         inventoryIngridient: ["Asam Jawa": 0, "Beras": 0, "Cabe": 0, "Garam": 0, "Gula Aren": 0, "Jahe": 0, "Kayu Manis": 0, "Kencur": 0, "Kunyit": 0, "Madu": 0, "Sambiloto": 0, "Serai": 0, "Sirih": 0, "Temulawak": 0],
-        inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih": 0, "Temulawak": 0, "Zonk": 0]
+        inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih Temulawak": 0, "Zonk": 0]
     )
-    
     @State var percentage: Float = 0.85
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                JColor.gradientPurple
+                JColor.gradientGreenBG
                     .ignoresSafeArea()
                 VStack{
                     Image("background")
@@ -49,7 +47,7 @@ struct JamuDetailsWW: View {
                                         .foregroundColor(JColor.white)
                                         .frame(width:145)
                                         .shadow(radius: 10)
-                                    Image(jamu.imageName)
+                                    Image(ingridient.imageName)
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width:110,height: 110)
@@ -60,11 +58,11 @@ struct JamuDetailsWW: View {
                                 ScrollView(showsIndicators: false){
                                     VStack(alignment: .center, spacing: 10){
                                         HStack{
-                                            Text(jamu.name)
+                                            Text(ingridient.name)
                                                 .bold()
                                                 .font(JFont.semiBold(fontFamily: .poppins, size: 40))
                                             Rectangle()
-                                                .fill(JColor.gradientPurple)
+                                                .fill(JColor.gradientGreenCardBG)
 //                                            if(jamu.rarity == .epic){
 //                                                .fill(JColor.gradientPurple)
 //                                            }else if(jamu.rarity == .rare){
@@ -78,7 +76,7 @@ struct JamuDetailsWW: View {
                                                 .overlay(
                                                     
                                                     
-                                                    Text(jamu.rarity.rawValue)
+                                                    Text("Herbal")
                                                         .font(JFont.semiBold(fontFamily: .poppins,size: 14))
                                                         .foregroundColor(.white)
                                                     
@@ -88,8 +86,8 @@ struct JamuDetailsWW: View {
                                         Spacer()
                                             .frame(height: ViewPadding.small)
                                         HStack(spacing: 20){
-                                            ForEach(jamu.jamuReceipts){jamuReceipt in
-                                                DetailIngredientView(ingridient: jamuReceipt.ingridient, count: jamuReceipt.quantity)
+                                            ForEach(ingridient.location){location in
+                                                DetailLocationView(location: location)
                                             }
                                         }
                                         
@@ -97,32 +95,29 @@ struct JamuDetailsWW: View {
                                         Spacer()
                                             .frame(height: ViewPadding.small)
                                         Group{
-                                            
-                                            Text("Jamu " + jamu.name)
-                                                .font(JFont.bold(fontFamily: .poppins, size: 30))
+                                            Text(ingridient.name)
+                                                .font(JFont.semiBold(fontFamily: .poppins, size: 40))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .padding(.horizontal, ViewPadding.xlarge)
                                             HStack{
-                                                Text("You Have In Your Inventory : \(user.inventoryJamu[jamu.name]!)")
-                                                    .font(JFont.regular(fontFamily: .poppins, size: 15))
-                                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                                    .padding(.horizontal, ViewPadding.xlarge)
-                                                
                                                 
                                             }
+                                            Text("You Have in Your Inventory : \(user.inventoryIngridient[ingridient.name]!)")
+                                                .font(JFont.regular(fontFamily: .poppins, size: 15))
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .padding(.horizontal, ViewPadding.xlarge)
+                                            
                                             
                                             
                                             Text("Description")
                                                 .font(JFont.semiBold(fontFamily: .poppins, size: 25))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .padding(.horizontal, ViewPadding.xlarge)
-                                            Text(jamu.jamuDescription)
+                                            Text(ingridient.description)
                                                 .lineSpacing(8)
-                                            
+                                                .padding(.horizontal,ViewPadding.xxlarge)
                                                 .font(JFont.regular(fontFamily: .poppins,size: 12))
                                                 .multilineTextAlignment(.leading)
-                                                .padding(.horizontal, ViewPadding.large)
-                                            
                                             
                                             //                                            Text("Earn 20 XP for each wish made and level up to the next value stage of your stone!")
                                             //                                                .lineSpacing(8)
@@ -161,9 +156,9 @@ struct JamuDetailsWW: View {
 }
 
 
-struct JamuDetailsWWView_Previews: PreviewProvider {
+struct IngredientsDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        JamuDetailsWW(jamu: jamuJahe)
+        IngredientsDetailView(ingridient: asamJawa)
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }
