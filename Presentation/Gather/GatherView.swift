@@ -74,16 +74,7 @@ struct GatherView: View{
                         
                         
                     }.frame(maxHeight : .infinity)
-                    //                        .background(.red)
-                    
-                    
-                    //                    ScrollView(showsIndicators: false) {
-                    //                        VStack{
-                    //                            ForEach(vm.ingridients_temp){ingridient in
-                    //                                IngridientCardView(ingridient: ingridient)
-                    //                            }
-                    //                        }
-                    //                    }
+                  
                     
                     
                 }

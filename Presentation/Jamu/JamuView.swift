@@ -40,16 +40,7 @@ struct JamuView: View {
                 }
                 VStack{
                     Spacer()
-                    //                    RoundedRectangle(cornerRadius: 10)
-                    //                        .frame(width: 300, height: 300)
-                    //                        .overlay(CarouselView())
-                    //                    HStack{
-                    //
-                    ////                            .overlay(<#T##self: RoundedRectangle##RoundedRectangle#>)
-                    //                        Spacer()
-                    //
-                    //                        Spacer()
-                    //                    }
+                    
                     
                     
                     HStack(spacing: ViewPadding.xxxlarge){

@@ -67,12 +67,8 @@ struct HeroView: View {
                                     .scaledToFit()
                             }
                             
-                            
-                            
-                            
-                            //                            Image(jamuClicked ?? jamuClicked.imageName : "" )
                             if(jamuClicked != nil && user.inventoryJamu[jamuClicked!.name]! > 0){
-                                //                                if(user.inventoryJamu[jamuKunyitAsam!.name]<=0){
+                                
                                 Image(jamuClicked!.imageName)
                                     .resizable()
                                     .transition(.opacity)
@@ -284,16 +280,6 @@ struct HeroView: View {
 }
 
 extension HeroView {
-    
-    func damaged() {
-        //        placeHerbRandomly(in: size)
-        //        Timer.scheduledTimer(withTimeInterval: vm.timerInterval, repeats: true) { _ in
-        //            updateHerb()
-        //        }
-        
-    }
-    
-    
     private func onAppear() {
         Task {
             self.health = user.health

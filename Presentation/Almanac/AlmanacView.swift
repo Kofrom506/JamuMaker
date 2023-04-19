@@ -17,7 +17,7 @@ struct AlmanacView: View {
 //        inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih": 0, "Temulawak": 0, "Zonk": 0]
 //    )
 
-    //    @State var ingredientsClicked: Ingredient = asamJawa
+
     var body: some View {
         GeometryReader { geo in
             ZStack{

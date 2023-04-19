@@ -27,32 +27,7 @@ class User: ObservableObject{
        
     }
     
-    func drink(effect: Int) {
-        self.health += effect
-    }
-    
-    func levelUp(){
-        if(health>=20){
-            self.level+=1
-            self.health = 10
-        }
-    }
-    
-    func isHealthy() -> Bool{
-        if(health >= 100){
-            return true
-        }else{
-            return false
-        }
-    }
-    
-    func isDead() -> Bool{
-        if(health <= 0){
-            return true
-        }else{
-            return false
-        }
-    }
+   
 }
 
 

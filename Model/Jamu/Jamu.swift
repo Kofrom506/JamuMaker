@@ -44,10 +44,8 @@ struct Jamu: Hashable, Identifiable, Equatable{
 
 
 
-var jamus: [Jamu] = [jamuBerasKencur, jamuCabePuyang, jamuEmpon, jamuJahe, jamuJakutes, jamuKayuManis, jamuKunyitAsam, jamuKunyitMadu, jamuSambiloto, jamuSirih, jamuTemulawak, jamuZonk
-                     
-                     //                     jamuJahe,jamuTemulawak,jamuKayuManis,jamuSirih,jamuSambiloto,jamuCabeJawa,jamuBawangPutih,jamuKemangi,jamuBerasKencur,jamuKunyitMadu
-]
+var jamus: [Jamu] = [jamuBerasKencur, jamuCabePuyang, jamuEmpon, jamuJahe, jamuJakutes, jamuKayuManis, jamuKunyitAsam, jamuKunyitMadu, jamuSambiloto, jamuSirih, jamuTemulawak, jamuZonk]
+
 let jamuBerasKencur = Jamu(name: "Beras Kencur", imageName: "jamu_berasKencur", rarity: .epic, jamuReceipts: [JamuReceipt(ingridient: beras, quantity: 5),JamuReceipt(ingridient: gulaAren, quantity: 2), JamuReceipt(ingridient: kencur, quantity: 2), JamuReceipt(ingridient: madu, quantity: 1)], jamuDescription: "Jamu Beras Kencur is a traditional Indonesian herbal drink made from rice, kencur (a type of ginger), and other spices. It is commonly consumed as a natural remedy for digestive issues, menstrual cramps, and colds. It is also believed to have anti-inflammatory and antioxidant properties. Beras Kencur is a good source of carbohydrates, dietary fiber, and various vitamins and minerals.")
 
 let jamuCabePuyang = Jamu(name: "Cabe Puyang", imageName: "jamu_cabePuyang", rarity: .rare, jamuReceipts: [JamuReceipt(ingridient: cabe, quantity: 3),JamuReceipt(ingridient: gulaAren, quantity: 2), JamuReceipt(ingridient: kunyit, quantity: 2)],jamuDescription: "Jamu Cabe Puyang is a traditional Indonesian herbal drink made from chili peppers (cabe), ginger, and other spices. It is commonly consumed as a natural remedy for various ailments, including headaches, sore throat, and digestive issues. It is also believed to have anti-inflammatory and pain-relieving properties. Cabe Puyang is a good source of vitamin C, vitamin B6, and various minerals.")

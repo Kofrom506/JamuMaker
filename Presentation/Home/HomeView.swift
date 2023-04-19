@@ -34,18 +34,6 @@ struct HomeView: View {
                 
                 VStack{
                     
-                    //                    PrimaryButton(title: "Brew Jamu",backgroundColor: JColor.greenPastel,foregroundColor: .red) {
-                    //                        screenRouter.navigateTo(.jamu)
-                    //                    }
-                    //                    PrimaryButton(title: "Gather  Ingridients",backgroundColor: JColor.greenPastel,foregroundColor: .red) {
-                    //                        screenRouter.navigateTo(.gather)
-                    //                    }
-                    //                    PrimaryButton(title: "Almanac  ",backgroundColor: JColor.greenPastel,foregroundColor: .red) {
-                    //                        screenRouter.navigateTo(.almanac)
-                    //                    }
-                    //                    PrimaryButton(title: "Hero  Jamu",backgroundColor: JColor.greenPastel,foregroundColor: .red) {
-                    //                        screenRouter.navigateTo(.hero)
-                    //                    }
                     Spacer()
                 }.padding(.vertical, ViewPadding.xlarge)
             }.ignoresSafeArea()
