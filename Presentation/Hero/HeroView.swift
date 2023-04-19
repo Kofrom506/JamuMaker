@@ -11,6 +11,9 @@ struct HeroView: View {
     @State var showImage: Bool = true
     @State private var isTapped = false
     @State var jamuClicked: Jamu? = nil
+    @State var isClicked: Bool = false
+    @State var isShowingAlert: Bool = false
+    @State var textAlert: String = ""
     @State var effect: Int = 0
     var user: User = User(
         name: "Evan Susanto",
@@ -40,56 +43,76 @@ struct HeroView: View {
                                 .transition(.opacity)
                                 .scaledToFit()
                             //                            Image(jamuClicked ?? jamuClicked.imageName : "" )
-                            
-                            Image("jamuClicked == nil ?  jamuClicked.imageName : ")
-                                .resizable()
-                                .transition(.opacity)
-                                .scaledToFit()
-                                .frame(width: geo.size.width * 0.2, height: geo.size.height * 0.3)
-                                .onTapGesture {
-                                    if jamuClicked != nil{
-                                        if(self.health>0 && self.health < 100){
-                                            switch jamuClicked!.rarity{
-                                            case .epic:
-                                                self.health+=20
-                                                withAnimation {
-                                                    self.isTapped.toggle()
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            if(jamuClicked != nil){
+                                Image(jamuClicked!.imageName)
+                                    .resizable()
+                                    .transition(.opacity)
+                                    .scaledToFit()
+                                    .frame(width: geo.size.width * 0.2, height: geo.size.height * 0.3)
+                                    .onTapGesture {
+                                        isClicked.toggle()
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            self.isClicked.toggle()
+                                            
+                                        }
+                                        
+                                        if(user.isHealthy()){
+                                            textAlert = "Congratulation You Have Saved The Princess from the disease"
+                                            isShowingAlert.toggle()
+                                        }else if(user.isDead()){
+                                            textAlert = "Oh no, You failed to save the princess"
+                                            isShowingAlert.toggle()
+                                        }
+                                        if jamuClicked != nil{
+                                            if(self.health>0 && self.health < 100){
+                                                switch jamuClicked!.rarity{
+                                                case .epic:
+                                                    self.health+=20
+                                                    withAnimation {
                                                         self.isTapped.toggle()
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                            self.isTapped.toggle()
+                                                        }
+                                                        
                                                     }
-                                                    
-                                                }
-                                            case .rare:
-                                                self.health+=10
-                                                withAnimation {
-                                                    self.isTapped.toggle()
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                case .rare:
+                                                    self.health+=10
+                                                    withAnimation {
                                                         self.isTapped.toggle()
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                            self.isTapped.toggle()
+                                                        }
+                                                        
                                                     }
-                                                    
-                                                }
-                                            case .common:
-                                                self.health+=5
-                                                withAnimation {
-                                                    self.isTapped.toggle()
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                case .common:
+                                                    self.health+=5
+                                                    withAnimation {
                                                         self.isTapped.toggle()
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                            self.isTapped.toggle()
+                                                        }
+                                                        
                                                     }
-                                                    
-                                                }
-                                            case .zonk:
-                                                self.health-=20
-                                                withAnimation {
-                                                    self.isTapped.toggle()
-                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                case .zonk:
+                                                    self.health-=20
+                                                    withAnimation {
                                                         self.isTapped.toggle()
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                            self.isTapped.toggle()
+                                                        }
+                                                        
                                                     }
-                                                    
                                                 }
-                                            }
-                                        }}
-                                    
-                                }
+                                            }}
+                                        
+                                    }
+                                    .rotationEffect(isClicked ? Angle(degrees: -45) : Angle(degrees: 0))
+                                    .alert(textAlert, isPresented: $isShowingAlert) {
+                                               Button("Restart", role: .cancel) {
+                                                   self.health = 25
+                                               }
+                                           }
+                            }
                         }
                         
                     }

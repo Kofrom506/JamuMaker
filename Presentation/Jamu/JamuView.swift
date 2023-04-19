@@ -150,7 +150,7 @@ struct JamuView: View {
                             .scaledToFit()
                                         .aspectRatio(contentMode: .fit)
                                         .rotationEffect(vm.isClicked ? Angle(degrees: -45) : Angle(degrees: 0))
-                                        .animation(.easeInOut(duration: 0.5))
+                                        
                                         
                                         .padding(.bottom, 50)
                     }
