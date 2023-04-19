@@ -37,7 +37,6 @@ struct ProgressBar: View {
                             .frame(width: 90)
                             .padding(.leading, -4 )
                         
-                        
                     }.cornerRadius(45.0)
                     HStack{
                         Spacer()

@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct JamuDetailsWW: View {
-    //    @EnvironmentObject var user: User
+        @EnvironmentObject var user: User
+    
     var jamu: Jamu = jamuKunyitAsam
     
-    var user: User = User(
-        name: "Evan Susanto",
-        inventoryIngridient: ["Tamarind": 0, "Rice": 0, "Chili": 0, "Salt": 0, "Palm Sugar": 0, "Ginger": 0, "Cinnamon": 0, "Galangal": 0, "Turmeric": 0, "Honey": 0, "Andrographis": 0, "Lemongrass": 0, "Betel Leaf": 0, "Curcuma": 0],
-        inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih": 0, "Temulawak": 0, "Zonk": 0]
-    )
+//    var user: User = User(
+//        name: "Evan Susanto",
+//        inventoryIngridient: ["Tamarind": 0, "Rice": 0, "Chili": 0, "Salt": 0, "Palm Sugar": 0, "Ginger": 0, "Cinnamon": 0, "Galangal": 0, "Turmeric": 0, "Honey": 0, "Andrographis": 0, "Lemongrass": 0, "Betel Leaf": 0, "Curcuma": 0],
+//        inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih": 0, "Temulawak": 0, "Zonk": 0]
+//    )
 
     
     var body: some View {
@@ -62,9 +63,9 @@ struct JamuDetailsWW: View {
                                         HStack{
                                             Text(jamu.name)
                                                 .bold()
-                                                .font(JFont.semiBold(fontFamily: .poppins, size: 40))
+                                                .font(JFont.semiBold(fontFamily: .poppins, size: 25))
                                             Rectangle()
-                                                .fill(JColor.gradientPurple)
+                                                .fill(getFillColor())
 //                                            if(jamu.rarity == .epic){
 //                                                .fill(JColor.gradientPurple)
 //                                            }else if(jamu.rarity == .rare){
@@ -99,7 +100,7 @@ struct JamuDetailsWW: View {
                                         Group{
                                             
                                             Text("Jamu " + jamu.name)
-                                                .font(JFont.bold(fontFamily: .poppins, size: 30))
+                                                .font(JFont.bold(fontFamily: .poppins, size: 25))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .padding(.horizontal, ViewPadding.xlarge)
                                             HStack{
@@ -113,7 +114,7 @@ struct JamuDetailsWW: View {
                                             
                                             
                                             Text("Description")
-                                                .font(JFont.semiBold(fontFamily: .poppins, size: 25))
+                                                .font(JFont.semiBold(fontFamily: .poppins, size: 20))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .padding(.horizontal, ViewPadding.xlarge)
                                             Text(jamu.jamuDescription)
@@ -158,6 +159,21 @@ struct JamuDetailsWW: View {
         }
         
     }
+}
+
+extension JamuDetailsWW{
+    func getFillColor() -> LinearGradient {
+        switch jamu.rarity {
+        case .epic:
+            return JColor.gradientPurple
+        case .rare:
+            return JColor.gradientBlue
+        case .common:
+            return JColor.gradientOrangeBG
+           default:
+               return JColor.gradientRedBG
+           }
+       }
 }
 
 

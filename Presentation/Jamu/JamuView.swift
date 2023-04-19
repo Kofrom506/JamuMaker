@@ -9,19 +9,19 @@ import SwiftUI
 
 struct JamuView: View {
     
-//    @EnvironmentObject var user: User
+    @EnvironmentObject var user: User
     @StateObject var myIngridients:IngridientsUsage = IngridientsUsage()
     @StateObject var vm: JamuViewModel
     @State var isShowingAlert: Bool = false
     @State var textAlert: String = ""
-
-    var user: User = User(
-        name: "Evan Susanto",
-        inventoryIngridient: ["Tamarind": 0, "Rice": 0, "Chili": 0, "Salt": 0, "Palm Sugar": 0, "Ginger": 0, "Cinnamon": 0, "Galangal": 0, "Turmeric": 0, "Honey": 0, "Andrographis": 0, "Lemongrass": 0, "Betel Leaf": 0, "Curcuma": 0],
-        inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih Temulawak": 0, "Zonk": 0]
-    )
-
-
+    
+    //    var user: User = User(
+    //        name: "Evan Susanto",
+    //        inventoryIngridient: ["Tamarind": 0, "Rice": 0, "Chili": 0, "Salt": 0, "Palm Sugar": 0, "Ginger": 0, "Cinnamon": 0, "Galangal": 0, "Turmeric": 0, "Honey": 0, "Andrographis": 0, "Lemongrass": 0, "Betel Leaf": 0, "Curcuma": 0],
+    //        inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih Temulawak": 0, "Zonk": 0]
+    //    )
+    
+    
     
     var body: some View {
         GeometryReader { geo in
@@ -33,30 +33,30 @@ struct JamuView: View {
                     Spacer()
                     HStack{
                         NavigatePage(image: "button_gather", destination: .map, geo: geo)
-                      
+                        
                         Spacer()
                         NavigatePage(image: "button_almanac", destination: .almanac, geo: geo)
                     }.padding(.horizontal, ViewPadding.xlarge)
                 }
                 VStack{
                     Spacer()
-//                    RoundedRectangle(cornerRadius: 10)
-//                        .frame(width: 300, height: 300)
-//                        .overlay(CarouselView())
-//                    HStack{
-//
-////                            .overlay(<#T##self: RoundedRectangle##RoundedRectangle#>)
-//                        Spacer()
-//
-//                        Spacer()
-//                    }
+                    //                    RoundedRectangle(cornerRadius: 10)
+                    //                        .frame(width: 300, height: 300)
+                    //                        .overlay(CarouselView())
+                    //                    HStack{
+                    //
+                    ////                            .overlay(<#T##self: RoundedRectangle##RoundedRectangle#>)
+                    //                        Spacer()
+                    //
+                    //                        Spacer()
+                    //                    }
                     
-                        
+                    
                     HStack(spacing: ViewPadding.xxxlarge){
                         VStack{
-
+                            
                             ForEach(myIngridients.ingridientsU[0...myIngridients.ingridientsU.count/2-1]) { ingridientU in
-
+                                
                                 AddSubstractValue(title: ingridientU.ingridient.name, ingridientUsage: ingridientU,max: user.inventoryIngridient[ingridientU.ingridient.name]!)
                                     .padding(.vertical, ViewPadding.small)
                             }
@@ -68,7 +68,7 @@ struct JamuView: View {
                                 .opacity(0.8)
                                 .padding(-20)
                         )
-
+                        
                         Divider()
                             .overlay(.black)
                             .frame(height: geo.size.height*1/3)
@@ -87,9 +87,9 @@ struct JamuView: View {
                         )
                     }
                     Spacer()
-                  
                     
-                   
+                    
+                    
                     Text(vm.text)
                     HStack {
                         Image("penumbuk")
@@ -105,8 +105,8 @@ struct JamuView: View {
                             .shadow(color: Color.yellow.opacity(0.5), radius: 10)
                             .rotation3DEffect(vm.isClicked ? Angle.degrees(720) : Angle.degrees(0), axis: (x: 0, y: 1, z: 0))
                             .alert(textAlert, isPresented: $isShowingAlert) {
-                                       Button("OK", role: .cancel) { }
-                                   }
+                                Button("OK", role: .cancel) { }
+                            }
                             .onTapGesture {
                                 for i in 0...myIngridients.ingridientsU.count-1 {
                                     vm.text.append(String(repeating: myIngridients.ingridientsU[i].ingridient.code, count: myIngridients.ingridientsU[i].usage))
@@ -132,6 +132,21 @@ struct JamuView: View {
                                 }else{
                                     textAlert = "Jamu Making Failed Because there is no ingredient input 😥"
                                 }
+                                user.inventoryIngridient["Tamarind"]! -= vm.text.filter{$0 == "A"}.count
+                                user.inventoryIngridient["Rice"]! -= vm.text.filter{$0 == "B"}.count
+                                user.inventoryIngridient["Chili"]! -= vm.text.filter{$0 == "C"}.count
+                                user.inventoryIngridient["Salt"]! -= vm.text.filter{$0 == "D"}.count
+                                user.inventoryIngridient["Palm Sugar"]! -= vm.text.filter{$0 == "E"}.count
+                                user.inventoryIngridient["Ginger"]! -= vm.text.filter{$0 == "F"}.count
+                                user.inventoryIngridient["Cinnamon"]! -= vm.text.filter{$0 == "G"}.count
+                                user.inventoryIngridient["Galangal"]! -= vm.text.filter{$0 == "H"}.count
+                                user.inventoryIngridient["Turmeric"]! -= vm.text.filter{$0 == "I"}.count
+                                user.inventoryIngridient["Honey"]! -= vm.text.filter{$0 == "J"}.count
+                                user.inventoryIngridient["Andrographis"]! -= vm.text.filter{$0 == "K"}.count
+                                user.inventoryIngridient["Lemongrass"]! -= vm.text.filter{$0 == "L"}.count
+                                user.inventoryIngridient["Betel Leaf"]! -= vm.text.filter{$0 == "M"}.count
+                                user.inventoryIngridient["Curcuma"]! -= vm.text.filter{$0 == "N"}.count
+                                
                                 vm.text = ""
                                 print(user.inventoryJamu)
                                 
@@ -139,7 +154,7 @@ struct JamuView: View {
                                     self.vm.isClicked.toggle()
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                                         self.vm.isClicked.toggle()
-                                                   }
+                                    }
                                 }
                             }
                         
@@ -148,11 +163,11 @@ struct JamuView: View {
                             .scaledToFit()
                             .frame(width: geo.size.width*1/6)
                             .scaledToFit()
-                                        .aspectRatio(contentMode: .fit)
-                                        .rotationEffect(vm.isClicked ? Angle(degrees: -45) : Angle(degrees: 0))
-                                        
-                                        
-                                        .padding(.bottom, 50)
+                            .aspectRatio(contentMode: .fit)
+                            .rotationEffect(vm.isClicked ? Angle(degrees: -45) : Angle(degrees: 0))
+                        
+                        
+                            .padding(.bottom, 50)
                     }
                     
                     
@@ -175,46 +190,6 @@ extension JamuView{
         return jamuZonk
     }
     
-    //    func brew(ingridientsU: [IngridientsUsage]) -> String {
-    //        let aa = ingridientsU.filter { ingridient in
-    //            return ingridient.usage>0
-    //        }.map { ingridient in
-    //            ingridient.ingridient.
-    //        }
-    //        return ""
-    //    }
-    
-    
-    //    func brew(ingridientsU: [IngridientsUsage]) -> String{
-    //        var recept: String = ""
-    //        for usage in ingridientsU {
-    //            switch usage {
-    //            case jaheU:
-    //                recept.append(multiply(count: usage.usage, character: "A"))
-    //            case kunyitU:
-    //                recept.append(multiply(count: usage.usage, character: "B"))
-    //            case temulawakU:
-    //                recept.append(multiply(count: usage.usage, character: "C"))
-    //            case kayuManisU:
-    //                recept.append(multiply(count: usage.usage, character: "D"))
-    //            case daunSirihU:
-    //                recept.append(multiply(count: usage.usage, character: "E"))
-    //            case sambilotoU:
-    //                recept.append(multiply(count: usage.usage, character: "F"))
-    //            case cabeJawaU:
-    //                recept.append(multiply(count: usage.usage, character: "G"))
-    //            case bawangPutihU:
-    //                recept.append(multiply(count: usage.usage, character: "H"))
-    //            case daunKemangiU:
-    //                recept.append(multiply(count: usage.usage, character: "I"))
-    //            default:
-    //                return ""
-    //            }
-    //
-    //        }
-    //        return recept
-    //    }
-    //
     func multiply(count: Int, character: String )->String{
         var text: String = ""
         for _ in 0..<count {

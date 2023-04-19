@@ -38,7 +38,7 @@ struct AddSubstractValue: View {
             Text(title)
             
                 .foregroundColor(JColor.black)
-                .font(JFont.semiBold(fontFamily: .poppins, size:  30))
+                .font(JFont.semiBold(fontFamily: .poppins, size:  25))
 
                 .foregroundColor(JColor.black)
                 .padding(.leading, ViewPadding.small)

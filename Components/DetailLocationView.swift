@@ -22,7 +22,7 @@ struct DetailLocationView: View {
                         .padding(.all, -ViewPadding.medium)
                 ).padding(.trailing, ViewPadding.small)
             Text(location.rawValue)
-                .font(JFont.semiBold(fontFamily: .poppins, size: 30))
+                .font(JFont.semiBold(fontFamily: .poppins, size: 15))
         }
     }
 }

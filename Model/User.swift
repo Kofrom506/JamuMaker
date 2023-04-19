@@ -39,7 +39,7 @@ class User: ObservableObject{
     }
     
     func isHealthy() -> Bool{
-        if(health == 100){
+        if(health >= 100){
             return true
         }else{
             return false
@@ -47,7 +47,7 @@ class User: ObservableObject{
     }
     
     func isDead() -> Bool{
-        if(health == 0){
+        if(health <= 0){
             return true
         }else{
             return false

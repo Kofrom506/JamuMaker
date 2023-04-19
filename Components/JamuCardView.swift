@@ -46,7 +46,7 @@ struct JamuCardView: View {
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .frame(width: 150, height: 210)
                     .foregroundColor(
-                        count == 0 && forHeroView ? JColor.grey : JColor.purpleSoft)
+                        count == 0 && forHeroView ? JColor.grey : getFillColor())
                     .cornerRadius(10)
                     
                 
@@ -59,7 +59,7 @@ struct JamuCardView: View {
                 
             )
             .overlay {
-                count == 0 && forHeroView ? JColor.grey.opacity(0.9) : JColor.grey.opacity(0)
+                count <= 0 && forHeroView ? JColor.grey.opacity(0.9) : JColor.grey.opacity(0)
             }
         
         
@@ -69,6 +69,21 @@ struct JamuCardView: View {
     
     //            RoundedRectangle(cornerRadius: 20, style: .continuous)
     //                .frame(width: 100, height: 100)
+}
+
+extension JamuCardView{
+    func getFillColor() -> Color {
+        switch jamu.rarity {
+        case .epic:
+            return JColor.purpleSoft
+        case .rare:
+            return JColor.blueSoft
+        case .common:
+            return JColor.orange
+           default:
+            return Color("pink2gradient")
+           }
+       }
 }
 
 

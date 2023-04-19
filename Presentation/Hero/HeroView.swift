@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct HeroView: View {
+    @EnvironmentObject var screenRouter:  ScreenRouter
+    @EnvironmentObject var user: User
     @State var showImage: Bool = true
     @State private var isTapped = false
     @State var jamuClicked: Jamu? = nil
     @State var isClicked: Bool = false
+    @State var isJamuZonk: Bool = false
     @State var isShowingAlert: Bool = false
     @State var textAlert: String = ""
+    @State var isLocking: Bool = false
     @State var effect: Int = 0
-    var user: User = User(
-        name: "Evan Susanto",
-        inventoryIngridient: ["Tamarind": 0, "Rice": 0, "Chili": 0, "Salt": 0, "Palm Sugar": 0, "Ginger": 0, "Cinnamon": 0, "Galangal": 0, "Turmeric": 0, "Honey": 0, "Andrographis": 0, "Lemongrass": 0, "Betel Leaf": 0, "Curcuma": 0],
-        inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih": 0, "Temulawak": 0, "Zonk": 0]
-    )
+    //    var user: User = User(
+    //        name: "Evan Susanto",
+    //        inventoryIngridient: ["Tamarind": 0, "Rice": 0, "Chili": 0, "Salt": 0, "Palm Sugar": 0, "Ginger": 0, "Cinnamon": 0, "Galangal": 0, "Turmeric": 0, "Honey": 0, "Andrographis": 0, "Lemongrass": 0, "Betel Leaf": 0, "Curcuma": 0],
+    //        inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih": 0, "Temulawak": 0, "Zonk": 0]
+    //    )
     
     @State var health: Int = 0
     var body: some View {
@@ -33,45 +37,60 @@ struct HeroView: View {
                 HStack{
                     VStack{
                         ProgressBar(colorProgress: Color.red, colorBackground: JColor.white_level_progress, value: $health, maxValue: 100)
-                        Button("Press") {
-                            self.health-=20
-                        }
-                        Text("Press")
+                        
                         HStack{
-                            Image(isTapped ? "girl_happy" : "girl_sick_severe")
-                                .resizable()
-                                .transition(.opacity)
-                                .scaledToFit()
+                            if(isTapped){
+                                Image("girl_happy" )
+                                    .resizable()
+                                    .transition(.opacity)
+                                    .scaledToFit()
+                            }else if(isJamuZonk){
+                                Image("girl_spit")
+                                    .resizable()
+                                    .transition(.opacity)
+                                    .scaledToFit()
+                            }else if(self.health>=100){
+                                Image("girl_healthy")
+                                    .resizable()
+                                    .transition(.opacity)
+                                    .scaledToFit()
+                            }
+                            else if(self.health<=0){
+                                Image("girl_cry")
+                                    .resizable()
+                                    .transition(.opacity)
+                                    .scaledToFit()
+                            }else{
+                                Image("girl_sick_severe")
+                                    .resizable()
+                                    .transition(.opacity)
+                                    .scaledToFit()
+                            }
+                            
+                            
+                            
+                            
                             //                            Image(jamuClicked ?? jamuClicked.imageName : "" )
-                            if(jamuClicked != nil){
+                            if(jamuClicked != nil && user.inventoryJamu[jamuClicked!.name]! > 0){
+                                //                                if(user.inventoryJamu[jamuKunyitAsam!.name]<=0){
                                 Image(jamuClicked!.imageName)
                                     .resizable()
                                     .transition(.opacity)
                                     .scaledToFit()
                                     .frame(width: geo.size.width * 0.2, height: geo.size.height * 0.3)
+                                    .shadow(color: Color.yellow.opacity(0.5), radius: 10)
                                     .onTapGesture {
-                                        isClicked.toggle()
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                            self.isClicked.toggle()
-                                            
-                                        }
-                                        
-                                        if(user.isHealthy()){
-                                            textAlert = "Congratulation You Have Saved The Princess from the disease"
-                                            isShowingAlert.toggle()
-                                        }else if(user.isDead()){
-                                            textAlert = "Oh no, You failed to save the princess"
-                                            isShowingAlert.toggle()
-                                        }
-                                        if jamuClicked != nil{
-                                            if(self.health>0 && self.health < 100){
+                                        if !self.isLocking {
+                                            if jamuClicked != nil{
                                                 switch jamuClicked!.rarity{
                                                 case .epic:
-                                                    self.health+=20
+                                                    self.health+=15
+                                                    
                                                     withAnimation {
-                                                        self.isTapped.toggle()
+                                                        self.isLocking = true
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                                             self.isTapped.toggle()
+                                                            self.isLocking = false
                                                         }
                                                         
                                                     }
@@ -96,22 +115,42 @@ struct HeroView: View {
                                                 case .zonk:
                                                     self.health-=20
                                                     withAnimation {
-                                                        self.isTapped.toggle()
+                                                        self.isJamuZonk.toggle()
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                            self.isTapped.toggle()
+                                                            self.isJamuZonk.toggle()
                                                         }
                                                         
                                                     }
                                                 }
-                                            }}
+                                                
+                                                if(self.health>=99){
+                                                    textAlert = "Congratulation You Have Saved The Princess from the disease"
+                                                    isShowingAlert.toggle()
+                                                }else if(self.health<=1){
+                                                    textAlert = "Oh no, You failed to save the princess"
+                                                    isShowingAlert.toggle()
+                                                }
+                                                
+                                            }
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                user.inventoryJamu[jamuClicked!.name]!-=1
+                                            }
+                                        }
                                         
+                                        
+                                        isClicked.toggle()
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            self.isClicked.toggle()
+                                            
+                                        }
                                     }
                                     .rotationEffect(isClicked ? Angle(degrees: -45) : Angle(degrees: 0))
                                     .alert(textAlert, isPresented: $isShowingAlert) {
-                                               Button("Restart", role: .cancel) {
-                                                   self.health = 25
-                                               }
-                                           }
+                                        Button("Restart", role: .cancel) {
+                                            self.health = 25
+                                        }
+                                    }
+                                
                             }
                         }
                         
