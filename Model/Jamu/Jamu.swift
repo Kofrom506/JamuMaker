@@ -16,6 +16,7 @@ struct Jamu: Hashable, Identifiable, Equatable{
     var rarity: JamuRarity
     var jamuReceipts: [JamuReceipt]
     var jamuDescription: String
+    var isClicked: Bool = false
     
     static func == (lhs: Jamu, rhs: Jamu) -> Bool {
         lhs.id == rhs.id
@@ -79,6 +80,7 @@ let jamuZonk = Jamu(name: "Zonk", imageName: "jamu_zonk", rarity: .zonk, jamuRec
 
                     The taste of the potion was bitter and acrid, leaving a foul taste in the mouth long after it had been consumed. The effects of the potion were almost immediate, causing the drinker to feel queasy and uncomfortable. It was also shrouded in mystery and superstition. "
             """
+                    
 )
 
 

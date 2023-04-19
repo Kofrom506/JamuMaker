@@ -14,14 +14,16 @@ enum ScreenRoute: ScreenProtocol {
     case jamu
     case gather
     case almanac
+    case map
     
     
     var embedInNavView: Bool {
         switch self {
-        case .home, .hero, .jamu, .gather, .almanac:
+        case .home:
             return true
-        case .jamu, .hero:
+        case .jamu, .hero, .map, .gather, .almanac:
             return false
+       
         }
     }
 }
@@ -39,7 +41,10 @@ class ScreenRouterFactory: RouterFactory {
             GatherView(vm: GatherViewModel())
         case .almanac:
             AlmanacView()
+        case .map:
+            MapView()
         }
+        
     }
 }
 

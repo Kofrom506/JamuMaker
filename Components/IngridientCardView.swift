@@ -11,6 +11,8 @@ struct IngridientCardView: View {
     var ingridient: Ingredient
     var withCount: Bool = true
     var count: Int = 0
+    var onPressed: Bool = false
+    
     var body: some View {
         
         VStack(spacing: 0){
@@ -27,43 +29,45 @@ struct IngridientCardView: View {
                 )
             
             Text(ingridient.name)
-                .font(JFont.bold(fontFamily: .poppins, size: 22))
+                .font(JFont.bold(fontFamily: .poppins, size: 18))
                 .foregroundColor(.white)
+                .lineLimit(2)
+                .multilineTextAlignment(.center)
             if(withCount){
                 Text("Qty: " + String(count))
                     .font(JFont.medium(fontFamily: .poppins, size: 15))
                     .foregroundColor(.white)
                     .lineLimit(2)
             }
-                      }.frame(height: 175)
+        }.frame(height: 175)
+            .background(
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .frame(width: 150, height: 210)
+                    .foregroundColor(JColor.greenSoft) .cornerRadius(10)
+                
+                
                     .background(
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .frame(width: 150, height: 210)
-                            .foregroundColor(JColor.greenSoft) .cornerRadius(10)
-                            .shadow(color: Color.gray.opacity(0.4), radius: 5, x: 0, y: 5)
-                        
-                            .background(
-                                Rectangle()
-                                    .foregroundColor(.white)
-                                    .padding(.all, -ViewPadding.small)
-                                
-                            )
-                        
+                        Rectangle()
+                            .foregroundColor(.white)
+                            .padding(.all, -ViewPadding.small)
+                            .shadow(color: onPressed ? JColor.yellow.opacity(0.8): Color.gray.opacity(0.5) , radius: 10, x: 0, y: 5)
                     )
-                      
-                      
-                      
-                      
-                      }
-                      
-                      //            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                      //                .frame(width: 100, height: 100)
-                      }
-                      
-                      
-                      struct IngridientCardView_Previews: PreviewProvider {
-                    static var previews: some View {
-                        IngridientCardView(ingridient: jahe, count: 100)
-                            .previewInterfaceOrientation(.landscapeLeft)
-                    }
-                }
+                
+            )
+        
+        
+        
+        
+    }
+    
+    //            RoundedRectangle(cornerRadius: 20, style: .continuous)
+    //                .frame(width: 100, height: 100)
+}
+
+
+struct IngridientCardView_Previews: PreviewProvider {
+    static var previews: some View {
+        IngridientCardView(ingridient: jahe, count: 100)
+            .previewInterfaceOrientation(.landscapeLeft)
+    }
+}

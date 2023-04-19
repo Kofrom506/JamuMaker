@@ -13,7 +13,7 @@ enum Location: String, Identifiable{
             return self
         }
     case sumatra = "Sumatra"
-    case jawa = "Jawa"
+    case jawa = "Java"
     case kalimantan = "Kalimantan"
     case papua = "Papua"
     case sulawesi = "Sulawesi"

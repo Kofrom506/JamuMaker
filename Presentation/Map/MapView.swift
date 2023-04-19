@@ -9,10 +9,11 @@ import SwiftUI
 
 struct MapView: View {
     @EnvironmentObject var screenRouter: ScreenRouter
+ 
     //    @EnvironmentObject var user: User
     var user: User = User(
         name: "Evan Susanto",
-        inventoryIngridient: ["Asam Jawa": 0, "Beras": 0, "Cabe": 0, "Garam": 0, "Gula Aren": 0, "Jahe": 0, "Kayu Manis": 0, "Kencur": 0, "Kunyit": 0, "Madu": 0, "Sambiloto": 0, "Serai": 0, "Sirih": 0, "Temulawak": 0],
+        inventoryIngridient: ["Tamarind": 0, "Rice": 0, "Chili": 0, "Salt": 0, "Palm Sugar": 0, "Ginger": 0, "Cinnamon": 0, "Galangal": 0, "Turmeric": 0, "Honey": 0, "Andrographis": 0, "Lemongrass": 0, "Betel Leaf": 0, "Curcuma": 0],
         inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih Temulawak": 0, "Zonk": 0]
     )
     
@@ -24,35 +25,56 @@ struct MapView: View {
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
                     .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
-                VStack(alignment: .center){
+               
+                ZStack{
                     Spacer()
-                    NavigatePage(image: "button_save", destination: .gather, geo: geo, multiplier: 0.15)
-                        .offset(x: -250, y: -120)
-                    
+                    NavigatePage(image: "pin_jawa", destination: .gather, geo: geo, multiplier: 0.1, action: {
+                        user.userLocation = .jawa
+                    })
+                        .offset(x: -geo.size.width * 0.109, y: geo.size.height * 0.136)
+                        .shadow(color: JColor.yellow.opacity(0.8), radius: 10)
                     Spacer()
-                        .frame(height: geo.size.height * 0.1)
+                    NavigatePage(image: "pin_kalimantan", destination: .gather, geo: geo, multiplier: 0.1, action: {
+                        user.userLocation = .kalimantan
+                    })
+                        .offset(x: -geo.size.width * 0.05, y: -geo.size.height * 0.09)
+                        .shadow(color: JColor.yellow.opacity(0.9), radius: 20)
+                        
+                    Spacer()
+                    NavigatePage(image: "pin_sumatra", destination: .gather, geo: geo, multiplier: 0.1, action: {
+                        user.userLocation = .sumatra
+                    })
+                        .offset(x: -geo.size.width * 0.366, y: -geo.size.height * 0.175)
+                        .shadow(color: JColor.yellow.opacity(0.9), radius: 20)
+                        
+                    Spacer()
+                    NavigatePage(image: "pin_sulawesi", destination: .gather, geo: geo, multiplier: 0.1, action: {
+                        user.userLocation = .sulawesi
+                    })
+                        .offset(x: geo.size.width * 0.146, y: -geo.size.height * 0.09)
+                        .shadow(color: JColor.yellow.opacity(0.9), radius: 20)
+                    Spacer()
+                    NavigatePage(image: "pin_papua", destination: .gather, geo: geo, multiplier: 0.1, action: {
+                        user.userLocation = .papua
+                    })
+                        .offset(x: geo.size.width * 0.402,  y: 0)
+                        .shadow(color: JColor.yellow.opacity(0.9), radius: 20)
+
                 }
-                
                 VStack{
-                    
-                    //                    PrimaryButton(title: "Brew Jamu",backgroundColor: JColor.greenPastel,foregroundColor: .red) {
-                    //                        screenRouter.navigateTo(.jamu)
-                    //                    }
-                    //                    PrimaryButton(title: "Gather  Ingridients",backgroundColor: JColor.greenPastel,foregroundColor: .red) {
-                    //                        screenRouter.navigateTo(.gather)
-                    //                    }
-                    //                    PrimaryButton(title: "Almanac  ",backgroundColor: JColor.greenPastel,foregroundColor: .red) {
-                    //                        screenRouter.navigateTo(.almanac)
-                    //                    }
-                    //                    PrimaryButton(title: "Hero  Jamu",backgroundColor: JColor.greenPastel,foregroundColor: .red) {
-                    //                        screenRouter.navigateTo(.hero)
-                    //                    }
                     Spacer()
-                }.padding(.vertical, ViewPadding.xlarge)
-            }.ignoresSafeArea()
-        }
+                    HStack{
+                        
+                        NavigatePage(image: "button_menu", destination: .home, geo: geo)
+                        Spacer()
+                        NavigatePage(image: "button_brew", destination: .jamu, geo: geo)
+                    }.padding(.horizontal, ViewPadding.xlarge)
+                }.padding(.bottom, ViewPadding.xlarge)
+            }.padding(.vertical, ViewPadding.xlarge)
+        }.ignoresSafeArea()
     }
 }
+
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
@@ -60,3 +82,8 @@ struct MapView_Previews: PreviewProvider {
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }
+
+
+
+
+

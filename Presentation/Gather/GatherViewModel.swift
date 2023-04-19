@@ -23,8 +23,11 @@ class GatherViewModel: ObservableObject {
     func placeHerbRandomly(in size: CGSize) {
         ingridients_temp.indices.forEach { index in
             var ingridient = ingridients[index]
-            ingridient.position = CGPoint(x: CGFloat.random(in: 0..<size.width * 2/3), y: CGFloat.random(in: 0..<size.height * 1/4))
+   
+            ingridient.position = CGPoint(x: CGFloat.random(in: size.width * 0.2..<size.width  * 0.8), y: CGFloat.random(in: size.height * 0.1..<size.height * 0.7))
             ingridients_temp[index] = ingridient
+//            print(size.height)
+//            print(size.height * 0.8)
         }
     }
 

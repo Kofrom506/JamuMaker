@@ -13,9 +13,10 @@ struct AlmanacView: View {
 //        @EnvironmentObject var user: User
     var user: User = User(
         name: "Evan Susanto",
-        inventoryIngridient: ["Asam Jawa": 0, "Beras": 0, "Cabe": 0, "Garam": 0, "Gula Aren": 0, "Jahe": 0, "Kayu Manis": 0, "Kencur": 0, "Kunyit": 0, "Madu": 0, "Sambiloto": 0, "Serai": 0, "Sirih": 0, "Temulawak": 0],
-        inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih Temulawak": 0, "Zonk": 0]
+        inventoryIngridient: ["Tamarind": 0, "Rice": 0, "Chili": 0, "Salt": 0, "Palm Sugar": 0, "Ginger": 0, "Cinnamon": 0, "Galangal": 0, "Turmeric": 0, "Honey": 0, "Andrographis": 0, "Lemongrass": 0, "Betel Leaf": 0, "Curcuma": 0],
+        inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih": 0, "Temulawak": 0, "Zonk": 0]
     )
+
     //    @State var ingredientsClicked: Ingredient = asamJawa
     var body: some View {
         GeometryReader { geo in
@@ -25,7 +26,7 @@ struct AlmanacView: View {
                         ScrollView(showsIndicators: false) {
                             VStack(spacing: 40){
                                 ForEach(ingridients) { ingridient  in
-                                    IngridientCardView(ingridient: ingridient)
+                                    IngridientCardView(ingridient: ingridient,withCount: false)
                                         .onTapGesture {
                                             isClicked = ingridient
                                         }
@@ -68,6 +69,7 @@ struct AlmanacView: View {
                             Spacer()
                             NavigatePage(image: "button_save", destination: .hero, geo: geo)
                         }.padding(.horizontal, ViewPadding.xlarge)
+                            .padding(.leading, geo.size.width * 0.22)
                     }
                 }
             }

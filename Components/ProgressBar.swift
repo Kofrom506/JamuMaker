@@ -22,21 +22,34 @@ struct ProgressBar: View {
             
             GeometryReader {
                 geometry in
-                        ZStack(alignment: .leading) {
-                            
-                            RoundedRectangle(cornerRadius: 20).frame(width: geometry.size.width , height: height)
-                                .opacity(0.3)
-                                .foregroundColor(colorBackground)
-                            RoundedRectangle(cornerRadius: 20).frame(width: min(CGFloat(Float(self.value)/Float(self.maxValue))*geometry.size.width, geometry.size.width), height: height)
-                                .foregroundColor(colorProgress)
-                                .animation(.linear)
-                            Image("heart_circle")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 90)
-                                .padding(.leading, -4 )
-                            
-                        }.cornerRadius(45.0)
+                VStack(spacing: 0){
+                    ZStack(alignment: .leading) {
+                        
+                        RoundedRectangle(cornerRadius: 20).frame(width: geometry.size.width , height: height)
+                            .opacity(0.3)
+                            .foregroundColor(colorBackground)
+                        RoundedRectangle(cornerRadius: 20).frame(width: min(CGFloat(Float(self.value)/Float(self.maxValue))*geometry.size.width, geometry.size.width), height: height)
+                            .foregroundColor(colorProgress)
+                            .animation(.linear)
+                        Image("heart_circle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 90)
+                            .padding(.leading, -4 )
+                        
+                        
+                    }.cornerRadius(45.0)
+                    HStack{
+                        Spacer()
+                        Text("Hp: \(value)/\(maxValue)")
+                            .font(JFont.bold(fontFamily: .poppins,size: 20))
+                            .background(RoundedRectangle(cornerRadius: 10)
+                                .foregroundColor(JColor.white_card_bg)
+                                .padding(-10)
+                            )
+                    }.padding(.horizontal, ViewPadding.medium)
+                    
+                }
                     
             }.padding(.horizontal, ViewPadding.mini)
         }

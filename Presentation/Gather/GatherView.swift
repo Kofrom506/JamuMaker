@@ -9,29 +9,27 @@
 import SwiftUI
 
 struct GatherView: View{
-//    @EnvironmentObject var user: User
+        @EnvironmentObject var screenRouter:  ScreenRouter
     @StateObject var vm: GatherViewModel
-        var user: User = User(
-            name: "Evan Susanto",
-            inventoryIngridient: ["Asam Jawa": 0, "Beras": 0, "Cabe": 0, "Garam": 0, "Gula Aren": 0, "Jahe": 0, "Kayu Manis": 0, "Kencur": 0, "Kunyit": 0, "Madu": 0, "Sambiloto": 0, "Serai": 0, "Sirih": 0, "Temulawak": 0, "Error": 0],
-            inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih Temulawak": 0, "Zonk": 0]
-        )
+    var locationBackground: String = ""
+    var user: User = User(
+        name: "Evan Susanto",
+        inventoryIngridient: ["Tamarind": 0, "Rice": 0, "Chili": 0, "Salt": 0, "Palm Sugar": 0, "Ginger": 0, "Cinnamon": 0, "Galangal": 0, "Turmeric": 0, "Honey": 0, "Andrographis": 0, "Lemongrass": 0, "Betel Leaf": 0, "Curcuma": 0],
+        inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih Temulawak": 0, "Zonk": 0]
+    )
+    
     
     var body: some View{
         GeometryReader{ geo in
             ZStack{
-                Image("background_jakarta")
+                
+                Image("background_"+user.userLocation.rawValue.lowercased())
                     .resizable()
                     .scaledToFill()
                     .edgesIgnoringSafeArea(.all)
                     .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
                 HStack(alignment: .center){
-                    Image("background_garden")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: geo.size.width * 0.85)
-                    //                        .background(.red)
-                        .ignoresSafeArea()
+                    Spacer()
                     
                     
                     
@@ -39,33 +37,33 @@ struct GatherView: View{
                         VStack(spacing: 40){
                             ForEach(user.inventoryIngridient.sorted(by: <), id: \.key) { key, value  in
                                 switch key {
-                                case "Asam Jawa":
+                                case "Tamarind":
                                     IngridientCardView(ingridient: asamJawa, count: value)
-                                case "Beras":
+                                case "Rice":
                                     IngridientCardView(ingridient: beras, count: value)
-                                case "Cabe":
+                                case "Chili":
                                     IngridientCardView(ingridient: cabe, count: value)
-                                case "Garam":
+                                case "Salt":
                                     IngridientCardView(ingridient: garam, count: value)
-                                case "Gula Aren":
+                                case "Palm Sugar":
                                     IngridientCardView(ingridient: gulaAren, count: value)
-                                case "Jahe":
+                                case "Ginger":
                                     IngridientCardView(ingridient: jahe, count: value)
-                                case "Kayu Manis":
+                                case "Cinnamon":
                                     IngridientCardView(ingridient: kayuManis, count: value)
-                                case "Kencur":
+                                case "Galangal":
                                     IngridientCardView(ingridient: kencur, count: value)
-                                case "Kunyit":
+                                case "Turmeric":
                                     IngridientCardView(ingridient: kunyit, count: value)
-                                case "Madu":
+                                case "Honey":
                                     IngridientCardView(ingridient: madu, count: value)
-                                case "Sambiloto":
+                                case "Andrographis":
                                     IngridientCardView(ingridient: sambiloto, count: value)
-                                case "Serai":
+                                case "Lemongrass":
                                     IngridientCardView(ingridient: serai, count: value)
-                                case "Sirih":
+                                case "Betel Leaf":
                                     IngridientCardView(ingridient: sirih, count: value)
-                                case "Temulawak":
+                                case "Curcuma":
                                     IngridientCardView(ingridient: temulawak, count: value)
                                 default:
                                     IngridientCardView(ingridient: bahanError, count: value)
@@ -92,25 +90,31 @@ struct GatherView: View{
                 }
                 VStack{
                     ForEach(vm.ingridients_temp) { ingridient in
-                        Image(ingridient.isUp ? ingridient.imageName : "")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 200, height: 200)
-                            .foregroundColor(.pink)
-                            .position(ingridient.position)
-                            .onTapGesture {
-                                for i in 0..<vm.ingridients_temp.count{
-                                    if vm.ingridients_temp[i].id == ingridient.id{
-                                        vm.ingridients_temp[i].isUp = false
-                                        print(ingridient)
-                                        self.user.inventoryIngridient[ingridient.name]!+=1
-                                        //                                        print(user.inventoryIngridient)
+                        if(ingridient.location.contains(user.userLocation)){
+                            Image(ingridient.isUp ? ingridient.imageName : "")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 200, height: 200)
+                                .foregroundColor(.pink)
+                                .position(ingridient.position)
+                                .onTapGesture {
+                                    for i in 0..<vm.ingridients_temp.count{
+                                        if vm.ingridients_temp[i].id == ingridient.id{
+                                            if vm.ingridients_temp[i].isUp{
+                                                vm.ingridients_temp[i].isUp = false
+                                                print(ingridient)
+                                                self.user.inventoryIngridient[ingridient.name]!+=1
+                                            }
+                                            
+                                            //                                        print(user.inventoryIngridient)
+                                        }
                                     }
-                                    
                                 }
-                                
-                            }
+                            
+                        }
                     }
+                    
+                    
                 }
                 VStack{
                     Spacer()
@@ -118,14 +122,21 @@ struct GatherView: View{
                     
                     HStack{
                         
-                        NavigatePage(image: "button_menu", destination: .home, geo: geo)
+                        Image("button_map")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geo.size.width * 0.15)
+         
+                            .onTapGesture {
+                                screenRouter.dismissLast()
+                            }
                         Spacer()
-                        NavigatePage(image: "button_brew", destination: .jamu, geo: geo)
+                        
                     }.padding(.horizontal, ViewPadding.xlarge)
-                }.padding(.bottom, ViewPadding.xxxlarge)
-                    .onAppear {
-                        vm.startGame(size: geo.size)
-                    }
+                }
+                .onAppear {
+                    vm.startGame(size: geo.size)
+                }
             }
         }
     }

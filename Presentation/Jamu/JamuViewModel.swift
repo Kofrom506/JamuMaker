@@ -9,6 +9,7 @@ import Foundation
 
 class JamuViewModel: ObservableObject {
     @Published var text: String = ""
-    @Published var isWater: Bool = false
-    @Published var isMixed: Bool = false
+    
+    @Published var isClicked: Bool = false
+//    @Published var isMixed: Bool = false
 }

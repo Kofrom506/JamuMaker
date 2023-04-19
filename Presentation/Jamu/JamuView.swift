@@ -12,12 +12,15 @@ struct JamuView: View {
 //    @EnvironmentObject var user: User
     @StateObject var myIngridients:IngridientsUsage = IngridientsUsage()
     @StateObject var vm: JamuViewModel
+    @State var isShowingAlert: Bool = false
+    @State var textAlert: String = ""
 
     var user: User = User(
         name: "Evan Susanto",
-        inventoryIngridient: ["Asam Jawa": 0, "Beras": 0, "Cabe": 0, "Garam": 0, "Gula Aren": 0, "Jahe": 0, "Kayu Manis": 0, "Kencur": 0, "Kunyit": 0, "Madu": 0, "Sambiloto": 0, "Serai": 0, "Sirih": 0, "Temulawak": 0],
+        inventoryIngridient: ["Tamarind": 0, "Rice": 0, "Chili": 0, "Salt": 0, "Palm Sugar": 0, "Ginger": 0, "Cinnamon": 0, "Galangal": 0, "Turmeric": 0, "Honey": 0, "Andrographis": 0, "Lemongrass": 0, "Betel Leaf": 0, "Curcuma": 0],
         inventoryJamu: ["Beras Kencur": 0,"Cabe Puyang": 0, "Empon-Empon": 0,"Jahe": 0,"Jakutes": 0,"Kayu Manis": 0,"Kunyit Asam": 0,"Kunyit Madu": 0,"Sambiloto": 0,"Sirih Temulawak": 0, "Zonk": 0]
     )
+
 
     
     var body: some View {
@@ -29,7 +32,7 @@ struct JamuView: View {
                 VStack{
                     Spacer()
                     HStack{
-                        NavigatePage(image: "button_gather", destination: .gather, geo: geo)
+                        NavigatePage(image: "button_gather", destination: .map, geo: geo)
                       
                         Spacer()
                         NavigatePage(image: "button_almanac", destination: .almanac, geo: geo)
@@ -93,32 +96,51 @@ struct JamuView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: geo.size.width*1/6)
+                            .scaleEffect(vm.isClicked ? 1.5 : 1, anchor: .center)
+                        
                         Image("kettle")
                             .resizable()
                             .scaledToFit()
                             .frame(width: geo.size.width*1/4)
                             .shadow(color: Color.yellow.opacity(0.5), radius: 10)
+                            .rotation3DEffect(vm.isClicked ? Angle.degrees(720) : Angle.degrees(0), axis: (x: 0, y: 1, z: 0))
+                            .alert(textAlert, isPresented: $isShowingAlert) {
+                                       Button("OK", role: .cancel) { }
+                                   }
                             .onTapGesture {
                                 for i in 0...myIngridients.ingridientsU.count-1 {
                                     vm.text.append(String(repeating: myIngridients.ingridientsU[i].ingridient.code, count: myIngridients.ingridientsU[i].usage))
                                     
                                 }
                                 for i in 0...myIngridients.ingridientsU.count-1 {
+                                    
                                     myIngridients.ingridientsU[i].usage = 0
                                     
                                 }
                                 
                                 
                                 self.myIngridients.objectWillChange.send()
-                             
-                                if(brew(textReceipt: vm.text, jamus: jamus).name == "Zonk"){
-                                    user.inventoryJamu["Zonk"]!+=1
+                                isShowingAlert.toggle()
+                                if(vm.text != ""){
+                                    if(brew(textReceipt: vm.text, jamus: jamus).name == "Zonk"){
+                                        user.inventoryJamu["Zonk"]!+=1
+                                        textAlert = "Sorry 😭 You Got Poisonous Jamu \(brew(textReceipt: vm.text, jamus: jamus).name) "
+                                    }else{
+                                        user.inventoryJamu[brew(textReceipt: vm.text, jamus: jamus).name]!+=1
+                                        textAlert = "Congratulations You Got Jamu \(brew(textReceipt: vm.text, jamus: jamus).name) 🎉"
+                                    }
                                 }else{
-                                    user.inventoryJamu[brew(textReceipt: vm.text, jamus: jamus).name]!+=1
+                                    textAlert = "Jamu Making Failed Because there is no ingredient input 😥"
                                 }
                                 vm.text = ""
                                 print(user.inventoryJamu)
                                 
+                                withAnimation {
+                                    self.vm.isClicked.toggle()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                        self.vm.isClicked.toggle()
+                                                   }
+                                }
                             }
                         
                         Image("jug")
@@ -127,13 +149,9 @@ struct JamuView: View {
                             .frame(width: geo.size.width*1/6)
                             .scaledToFit()
                                         .aspectRatio(contentMode: .fit)
-                                        .rotationEffect(vm.isWater ? Angle(degrees: -45) : Angle(degrees: 0))
+                                        .rotationEffect(vm.isClicked ? Angle(degrees: -45) : Angle(degrees: 0))
                                         .animation(.easeInOut(duration: 0.5))
-                                        .onTapGesture {
-                                            withAnimation {
-                                                self.vm.isWater.toggle()
-                                            }
-                                        }
+                                        
                                         .padding(.bottom, 50)
                     }
                     
