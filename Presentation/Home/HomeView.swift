@@ -27,7 +27,7 @@ struct HomeView: View {
                     .frame(width: geo.size.width, height: geo.size.height, alignment: .center)
                 VStack(alignment: .center){
                     Spacer()
-                    NavigatePage(image: "button_start", destination: .map, geo: geo, multiplier: 0.4)
+                    NavigatePage(image: "button_start", destination: .onBoarding, geo: geo, multiplier: 0.4)
                     Spacer()
                         .frame(height: geo.size.height * 0.1)
                 }

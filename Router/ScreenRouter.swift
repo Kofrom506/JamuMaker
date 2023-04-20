@@ -15,13 +15,14 @@ enum ScreenRoute: ScreenProtocol {
     case gather
     case almanac
     case map
+    case onBoarding
     
     
     var embedInNavView: Bool {
         switch self {
         case .home:
             return true
-        case .jamu, .hero, .map, .gather, .almanac:
+        case .jamu, .hero, .map, .gather, .almanac, .onBoarding:
             return false
        
         }
@@ -43,6 +44,8 @@ class ScreenRouterFactory: RouterFactory {
             AlmanacView()
         case .map:
             MapView()
+        case .onBoarding:
+            OnboardingView()
         }
         
     }

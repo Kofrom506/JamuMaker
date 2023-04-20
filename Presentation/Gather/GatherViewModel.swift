@@ -24,7 +24,7 @@ class GatherViewModel: ObservableObject {
         ingridients_temp.indices.forEach { index in
             var ingridient = ingridients[index]
    
-            ingridient.position = CGPoint(x: CGFloat.random(in: size.width * 0.2..<size.width  * 0.8), y: CGFloat.random(in: -size.height * 0.9 ..< -size.height * 0.2))
+            ingridient.position = CGPoint(x: CGFloat.random(in: size.width * 0.2..<size.width  * 0.8), y: CGFloat.random(in: 50 ..< size.height-50 ))
             ingridients_temp[index] = ingridient
 //            print(size.height)
 //            print(size.height * 0.8)

@@ -81,6 +81,7 @@ struct GatherView: View{
                 VStack{
                     ForEach(vm.ingridients_temp) { ingridient in
                         if(ingridient.location.contains(user.userLocation)){
+                       
                             Image(ingridient.isUp ? ingridient.imageName : "")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)

@@ -61,7 +61,7 @@ struct HeroView: View {
                                     .transition(.opacity)
                                     .scaledToFit()
                             }else{
-                                Image("girl_sick_severe")
+                                Image("girl_sick")
                                     .resizable()
                                     .transition(.opacity)
                                     .scaledToFit()
@@ -81,7 +81,11 @@ struct HeroView: View {
                                                 switch jamuClicked!.rarity{
                                                 case .epic:
                                                     self.health+=15
-                                                    
+                                                    user.health+=15
+                                                    if(self.health>=99){
+                                                        textAlert = "Congratulation You Have Saved The Princess from the disease 🥹😇🥳 "
+                                                        isShowingAlert.toggle()
+                                                    }
                                                     withAnimation {
                                                         self.isLocking = true
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -92,6 +96,11 @@ struct HeroView: View {
                                                     }
                                                 case .rare:
                                                     self.health+=10
+                                                    user.health+=10
+                                                    if(self.health>=99){
+                                                        textAlert = "Congratulation You Have Saved The Princess from the disease 🥹😇🥳 "
+                                                        isShowingAlert.toggle()
+                                                    }
                                                     withAnimation {
                                                         self.isTapped.toggle()
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -101,6 +110,11 @@ struct HeroView: View {
                                                     }
                                                 case .common:
                                                     self.health+=5
+                                                    user.health+=5
+                                                    if(self.health>=99){
+                                                        textAlert = "Congratulation You Have Saved The Princess from the disease 🥹😇🥳 "
+                                                        isShowingAlert.toggle()
+                                                    }
                                                     withAnimation {
                                                         self.isTapped.toggle()
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -110,6 +124,12 @@ struct HeroView: View {
                                                     }
                                                 case .zonk:
                                                     self.health-=20
+                                                    user.health-=20
+                                                    if(self.health <= 0){
+                                                        textAlert = "Oh no, You failed to save the princess 😭😭😭"
+                                                        isShowingAlert.toggle()
+                                                        
+                                                    }
                                                     withAnimation {
                                                         self.isJamuZonk.toggle()
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -119,13 +139,14 @@ struct HeroView: View {
                                                     }
                                                 }
                                                 
-                                                if(self.health>=99){
-                                                    textAlert = "Congratulation You Have Saved The Princess from the disease"
-                                                    isShowingAlert.toggle()
-                                                }else if(self.health<=1){
-                                                    textAlert = "Oh no, You failed to save the princess"
-                                                    isShowingAlert.toggle()
-                                                }
+//                                                if(self.health>=99){
+//                                                    textAlert = "Congratulation You Have Saved The Princess from the disease 🥹😇🥳 "
+//                                                    isShowingAlert.toggle()
+//                                                }
+//                                                    else if(self.health<=1){
+//                                                    textAlert = "Oh no, You failed to save the princess 😭😭😭"
+//                                                    isShowingAlert.toggle()
+//                                                }
                                                 
                                             }
                                             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -144,6 +165,7 @@ struct HeroView: View {
                                     .alert(textAlert, isPresented: $isShowingAlert) {
                                         Button("Restart", role: .cancel) {
                                             self.health = 25
+                                            user.health = 25
                                         }
                                     }
                                 

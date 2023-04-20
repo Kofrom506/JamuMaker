@@ -123,6 +123,10 @@ struct JamuDetailsWW: View {
                                                 .font(JFont.regular(fontFamily: .poppins,size: 12))
                                                 .multilineTextAlignment(.leading)
                                                 .padding(.horizontal, ViewPadding.large)
+                                            Text("Effect: \(getText())")
+                                                .font(JFont.semiBold(fontFamily: .poppins, size: 20))
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .padding(.horizontal, ViewPadding.xlarge)
                                             
                                             
                                             //                                            Text("Earn 20 XP for each wish made and level up to the next value stage of your stone!")
@@ -172,6 +176,19 @@ extension JamuDetailsWW{
             return JColor.gradientOrangeBG
            default:
                return JColor.gradientRedBG
+           }
+       }
+    
+    func getText() -> String {
+        switch jamu.rarity {
+        case .epic:
+            return "Epic Potion: +15 HP"
+        case .rare:
+            return "Rare Potion: +10 HP"
+        case .common:
+            return "Common Potion: +5 HP"
+           default:
+               return "Zonk Potion: -20 HP"
            }
        }
 }
