@@ -19,7 +19,7 @@ struct HeroView: View {
     @State var textAlert: String = ""
     @State var isLocking: Bool = false
     @State var effect: Int = 0
-
+    
     @State var health: Int = 0
     var body: some View {
         GeometryReader{ geo in
@@ -83,7 +83,7 @@ struct HeroView: View {
                                                     }
                                                     withAnimation {
                                                         self.isLocking = true
-                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                             self.isTapped.toggle()
                                                             self.isLocking = false
                                                         }
@@ -98,7 +98,7 @@ struct HeroView: View {
                                                     }
                                                     withAnimation {
                                                         self.isTapped.toggle()
-                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                             self.isTapped.toggle()
                                                         }
                                                         
@@ -112,7 +112,7 @@ struct HeroView: View {
                                                     }
                                                     withAnimation {
                                                         self.isTapped.toggle()
-                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                             self.isTapped.toggle()
                                                         }
                                                         
@@ -127,42 +127,56 @@ struct HeroView: View {
                                                     }
                                                     withAnimation {
                                                         self.isJamuZonk.toggle()
-                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                             self.isJamuZonk.toggle()
                                                         }
                                                         
                                                     }
                                                 }
                                                 
-//                                                if(self.health>=99){
-//                                                    textAlert = "Congratulation You Have Saved The Princess from the disease 🥹😇🥳 "
-//                                                    isShowingAlert.toggle()
-//                                                }
-//                                                    else if(self.health<=1){
-//                                                    textAlert = "Oh no, You failed to save the princess 😭😭😭"
-//                                                    isShowingAlert.toggle()
-//                                                }
+                                                //                                                if(self.health>=99){
+                                                //                                                    textAlert = "Congratulation You Have Saved The Princess from the disease 🥹😇🥳 "
+                                                //                                                    isShowingAlert.toggle()
+                                                //                                                }
+                                                //                                                    else if(self.health<=1){
+                                                //                                                    textAlert = "Oh no, You failed to save the princess 😭😭😭"
+                                                //                                                    isShowingAlert.toggle()
+                                                //                                                }
                                                 
                                             }
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                 user.inventoryJamu[jamuClicked!.name]!-=1
                                             }
                                         }
                                         
                                         
                                         isClicked.toggle()
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                             self.isClicked.toggle()
                                             
                                         }
                                     }
                                     .rotationEffect(isClicked ? Angle(degrees: -45) : Angle(degrees: 0))
-                                    .alert(textAlert, isPresented: $isShowingAlert) {
-                                        Button("Restart", role: .cancel) {
-                                            self.health = 25
-                                            user.health = 25
+                                    .alert(isPresented: $isShowingAlert) {
+                                            Alert(title: Text("Restart Game"), message: Text(textAlert), dismissButton: .default(Text("Restart"), action: {
+                                                self.health = 25
+                                                user.health = 25
+                                            }))
                                         }
-                                    }
+//                                    .alert(isPresented: $isShowingAlert) {
+//                                        Alert(title: Text("Restart Game"), message: Text("You must acknowledge this message by clicking the OK button."), primaryButton: .default(Text("Restart"), action: {
+//                                            self.health = 25
+//                                            user.health = 25
+//                                        }))
+                                        //                                        Alert(title: Text("Restart"), message: Text(textAlert), primaryButton: .default(Text("Restart"), action: {
+                                        //
+                                        //                                                   }))
+                                        
+                                        //                                        Button("Restart", role: .cancel) {
+                                        //                                            self.health = 25
+                                        //                                            user.health = 25
+                                        //                                        }
+                                    
                                 
                             }
                         }
