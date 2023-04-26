@@ -185,6 +185,7 @@ extension JamuView{
         return text
     }
     
+    
 }
 
 struct JamuView_Previews: PreviewProvider {

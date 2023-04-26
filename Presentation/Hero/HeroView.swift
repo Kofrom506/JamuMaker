@@ -83,6 +83,7 @@ struct HeroView: View {
                                                     }
                                                     withAnimation {
                                                         self.isLocking = true
+                                                        self.isTapped.toggle()
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                             self.isTapped.toggle()
                                                             self.isLocking = false
@@ -97,9 +98,11 @@ struct HeroView: View {
                                                         isShowingAlert.toggle()
                                                     }
                                                     withAnimation {
+                                                        self.isLocking = true
                                                         self.isTapped.toggle()
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                             self.isTapped.toggle()
+                                                            self.isLocking = false
                                                         }
                                                         
                                                     }
@@ -111,24 +114,29 @@ struct HeroView: View {
                                                         isShowingAlert.toggle()
                                                     }
                                                     withAnimation {
+                                                        self.isLocking = true
                                                         self.isTapped.toggle()
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                             self.isTapped.toggle()
+                                                            self.isLocking = false
                                                         }
                                                         
                                                     }
                                                 case .zonk:
                                                     self.health-=20
                                                     user.health-=20
+                                                    
                                                     if(self.health <= 0){
                                                         textAlert = "Oh no, You failed to save the princess 😭😭😭"
                                                         isShowingAlert.toggle()
                                                         
                                                     }
                                                     withAnimation {
+                                                        self.isLocking = true
                                                         self.isJamuZonk.toggle()
                                                         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                                             self.isJamuZonk.toggle()
+                                                            self.isLocking = false
                                                         }
                                                         
                                                     }
